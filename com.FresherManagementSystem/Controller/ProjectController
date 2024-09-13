@@ -1,0 +1,62 @@
+package com.FreshermanManagementSystem.Controller;
+
+import com.FreshermanManagementSystem.Entities.Fresher;
+import com.FreshermanManagementSystem.Entities.Project;
+import com.FreshermanManagementSystem.service.FresherService;
+import com.FreshermanManagementSystem.service.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+public class ProjectController {
+    @Autowired
+    private ProjectService service;
+
+    @GetMapping("/freshers/projects")
+    public String getAllProject(Model model) {
+        model.addAttribute("projects", service.getAllProject());
+        return "projects";
+    }
+
+    @GetMapping("freshers/projects/new")
+    public String createProjectForm(Model model){
+        Project project = new Project();
+        model.addAttribute("project",project);
+        return "create-project";
+    }
+
+    @PostMapping("/freshers/projects")
+    public String saveProject(@ModelAttribute("project") Project project) {
+        service.saveProject(project);
+        return "redirect:/freshers/projects";
+    }
+
+    @GetMapping("/freshers/projects/edit/{id}")
+    public String editProjectForm(@PathVariable int id, Model model){
+        model.addAttribute("project", service.getById(id));
+        return "project";
+    }
+
+    @PostMapping("/freshers/projects/edit/{id}")
+    public String updateProject(@PathVariable int id, @ModelAttribute("fresher") Project project){
+        Project existingProject = service.getById(id);
+        existingProject.setProject(project.getProject());
+        existingProject.setLanguage(project.getLanguage());
+        existingProject.setMentor(project.getMentor());
+        existingProject.setLastDate(project.getLastDate());
+        existingProject.setStartDate(project.getStartDate());
+
+        service.saveProject(existingProject);
+        return "redirect:/freshers/projects";
+    }
+
+    @GetMapping("/freshers/projects/{id}")
+    public String deleteById(@PathVariable int id){
+        service.deleteById((id));
+        return "redirect:/freshers/projects";
+    }
+
+}
