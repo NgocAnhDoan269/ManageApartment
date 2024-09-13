@@ -1,0 +1,37 @@
+package com.FreshermanManagementSystem.serviceimlp;
+
+import com.FreshermanManagementSystem.Entities.Fresher;
+import com.FreshermanManagementSystem.repository.FresherRepository;
+import com.FreshermanManagementSystem.service.FresherService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class FresherServiceImlp implements FresherService {
+
+    @Autowired
+    FresherRepository FresherRepository;
+
+    @Override
+    public List<Fresher> getAllFreshers() {
+                List<Fresher> list = FresherRepository.findAll();
+                return list;
+    }
+
+    @Override
+    public Fresher saveFresher(Fresher fresher) {
+        return FresherRepository.save(fresher);
+    }
+
+    @Override
+    public Fresher getById(int id) {
+        return FresherRepository.findById(id).get();
+    }
+
+    @Override
+    public void deleteById(int id) {
+        FresherRepository.deleteById(id);
+    }
+}
