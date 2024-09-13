@@ -1,0 +1,13 @@
+package com.FreshermanManagementSystem.service;
+
+import com.FreshermanManagementSystem.Entities.Fresher;
+import com.FreshermanManagementSystem.Entities.Project;
+
+import java.util.List;
+
+public interface ProjectService {
+    public List<Project> getAllProject();
+    public Project saveProject (Project project);
+    public Project getById(int id);
+    public void deleteById(int id);
+}
