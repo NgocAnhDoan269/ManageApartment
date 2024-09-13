@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Fresher Management System</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">Fresher Management System</a>
+
+    <!-- Toggler/collapsible Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+
+        <u1 class="navbar-nav">
+
+            <li class="navbar-item"><a class="nav-link" th:href="@{/freshers}"> Fresher Management </a></li>
+            <li class="navbar-item"><a class="nav-link" th:href="@{/freshers/projects}"> Project Management </a></li>
+
+
+        </u1>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 container justìy-content-center card">
+            <div class="text-center" style="font-size: 30px;">Update Fresher Information</div>
+            <div class="card-body"></div>
+            <form th:action="@{/freshers/edit/{id} (id=${fresher.id})}" th:object="${fresher}" method="post">
+
+                <div class="form-group">
+                    <label>Name: </label>
+                    <input type="text" name="Name" class="form-control" th:field="*{Name}" placeholder="Enter Name"/>
+                </div>
+
+                <div class="form-group">
+                    <label>Pro Lang: </label>
+                    <input type="text" name="language" class="form-control" placeholder="Enter Pro Lang"/>
+                </div>
+
+                <div class="form-group">
+                    <label>Email: </label>
+                    <input type="text" name="email" class="form-control" th:field="*{email}" placeholder="Enter Email"/>
+                </div>
+
+                <div class="form-group">
+                    <label>Personal ID: </label>
+                    <input type="text" name="personalId" class="form-control" th:field="*{personalId}" placeholder="Enter Personal ID"/>
+                </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>
