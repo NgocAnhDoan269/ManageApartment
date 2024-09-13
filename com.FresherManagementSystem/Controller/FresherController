@@ -1,0 +1,66 @@
+package com.FreshermanManagementSystem.Controller;
+
+import com.FreshermanManagementSystem.Entities.Fresher;
+import com.FreshermanManagementSystem.service.FresherService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+@org.springframework.stereotype.Controller
+public class FresherController {
+
+    @Autowired
+    private FresherService service;
+
+    @GetMapping("/home")
+    public String home() {
+        return "home";//view page html file -> home.html
+    }
+
+    @GetMapping("/freshers")
+    public String getAllFreshers(Model model) {
+        model.addAttribute("freshers", service.getAllFreshers());
+        return "freshers";
+    }
+
+    @GetMapping("freshers/new")
+    public String createFresherForm(Model model){
+        Fresher fresher = new Fresher();
+        model.addAttribute("fresher",fresher);
+        return "create-fresher";
+    }
+
+    @PostMapping("/freshers")
+    public String saveFresher(@ModelAttribute("fresher") Fresher fresher) {
+        service.saveFresher(fresher);
+        return "redirect:/freshers";
+    }
+
+    @GetMapping("/freshers/edit/{id}")
+    public String editFresherForm(@PathVariable int id, Model model){
+        model.addAttribute("fresher", service.getById(id));
+        return "edit_fresher";
+    }
+
+    @PostMapping("/freshers/edit/{id}")
+    public String updateFresher(@PathVariable int id, @ModelAttribute("fresher") Fresher fresher){
+        Fresher existingFresher = service.getById(id);
+        existingFresher.setPersonalId(fresher.getPersonalId());
+        existingFresher.setName(fresher.getName());
+        existingFresher.setEmail(fresher.getEmail());
+        existingFresher.setLanguage(fresher.getLanguage());
+
+        service.saveFresher(existingFresher);
+        return "redirect:/freshers";
+    }
+
+    @GetMapping("/freshers/{id}")
+    public String deleteById(@PathVariable int id){
+        service.deleteById((id));
+        return "redirect:/freshers";
+    }
+
+}
