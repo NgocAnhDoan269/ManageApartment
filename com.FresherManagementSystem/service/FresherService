@@ -1,0 +1,13 @@
+package com.FreshermanManagementSystem.service;
+
+import com.FreshermanManagementSystem.Entities.Fresher;
+
+import java.util.List;
+
+public interface FresherService {
+    public List<Fresher> getAllFreshers();
+    public Fresher saveFresher (Fresher fresher);
+    public Fresher getById(int id);
+    public void deleteById(int id);
+
+}
