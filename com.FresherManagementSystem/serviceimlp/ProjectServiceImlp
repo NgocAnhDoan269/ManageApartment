@@ -1,0 +1,37 @@
+package com.FreshermanManagementSystem.serviceimlp;
+
+import com.FreshermanManagementSystem.Entities.Fresher;
+import com.FreshermanManagementSystem.Entities.Project;
+import com.FreshermanManagementSystem.repository.FresherRepository;
+import com.FreshermanManagementSystem.repository.ProjectRepository;
+import com.FreshermanManagementSystem.service.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+public class ProjectServiceImlp implements ProjectService {
+
+    @Autowired
+    ProjectRepository ProjectRepository;
+
+    @Override
+    public List<Project> getAllProject() {
+        List<Project> list = ProjectRepository.findAll();
+        return list;
+    }
+
+    @Override
+    public Project saveProject(Project project) {
+        return ProjectRepository.save(project);
+    }
+
+    @Override
+    public Project getById(int id) {
+        return ProjectRepository.findById(id).get();
+    }
+
+    @Override
+    public void deleteById(int id) {
+        ProjectRepository.deleteById(id);
+    }
+}
